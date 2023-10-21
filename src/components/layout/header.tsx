@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
 
 interface LinkProps {
   text: string
@@ -9,7 +9,7 @@ interface LinkProps {
 }
 
 export default function Header({ links }: { links: LinkProps[] }) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  // const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
     <header className="w-full z-50 fixed bg-white shadow-sm px-5 md:px-0">
@@ -31,7 +31,7 @@ export default function Header({ links }: { links: LinkProps[] }) {
             </Link>
           ))}
         </nav>
-        <button
+        {/* <button
           type="button"
           className="inline-flex items-center gap-2 rounded-lg bg-gray-200 px-2.5 py-2 text-sm font-semibold text-gray-500 ring-indigo-300 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:hidden"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -44,8 +44,8 @@ export default function Header({ links }: { links: LinkProps[] }) {
             />
           </svg>
           Menu
-        </button>
-        <div className="">
+        </button> */}
+        <Link href="/cart" className="">
           {/* Add your cart button here */}
           <button
             type="button"
@@ -69,9 +69,9 @@ export default function Header({ links }: { links: LinkProps[] }) {
               />
             </svg>
           </button>
-        </div>
+        </Link>
       </div>
-      {isMobileMenuOpen && (
+      {/* {isMobileMenuOpen && (
         <div className="lg:hidden">
           <nav className="flex flex-col gap-4">
             {links?.map((link) => (
@@ -83,7 +83,7 @@ export default function Header({ links }: { links: LinkProps[] }) {
             ))}
           </nav>
         </div>
-      )}
+      )} */}
     </header>
   )
 }
