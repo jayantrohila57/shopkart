@@ -4,7 +4,17 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-const CartItem = async ({ product }) => {
+interface Product {
+  name: string
+  size: string
+  color: string
+  price: string
+  inStock: boolean
+  link: string
+  image: string
+  quantity: number
+}
+const CartItem = async ({ product }: { product: Product }) => {
   return (
     <div className="py-5 sm:py-8">
       <div className="flex flex-wrap gap-4 sm:py-2.5 lg:gap-6">
