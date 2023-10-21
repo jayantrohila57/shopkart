@@ -2,11 +2,21 @@ import React from 'react'
 
 import Cart from '@/components/cart/cart'
 
+interface Product {
+  name: string
+  size: string
+  color: string
+  price: string
+  inStock: boolean
+  link: string
+  image: string
+  quantity: number
+}
 const Page: React.FC = async () => {
   const subtotal = '$129.99'
   const shipping = '$4.99'
   const total = '$134.98 USD'
-  const products = [
+  const products: Product[] = [
     {
       name: 'Top',
       size: 'S',

@@ -4,7 +4,24 @@ import React from 'react'
 
 import CartItem from './CartItem'
 
-const Cart = async ({ products, subtotal, shipping, total }) => {
+interface Product {
+  name: string
+  size: string
+  color: string
+  price: string
+  inStock: boolean
+  link: string
+  image: string
+  quantity: number
+}
+
+type TCart = {
+  products: Product[]
+  subtotal: string
+  shipping: string
+  total: string
+}
+const Cart = async ({ products, subtotal, shipping, total }: TCart) => {
   return (
     <div className="bg-white py-6 sm:py-8 mt-10 lg:py-12">
       <div className="mb-6 sm:mb-10 lg:mb-16">
@@ -12,8 +29,8 @@ const Cart = async ({ products, subtotal, shipping, total }) => {
       </div>
 
       <div className="mb-5 flex flex-col sm:mb-8 sm:divide-y sm:border-t sm:border-b">
-        {products.map((product, index) => (
-          <CartItem key={index} product={product} />
+        {products.map((product: Product) => (
+          <CartItem key={product.name} product={product} />
         ))}
       </div>
 
