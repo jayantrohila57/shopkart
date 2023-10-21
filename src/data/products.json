@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "Timely Watch",
+    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&q=75&fit=crop&w=600",
+    "price": 15.0,
+    "discountedPrice": 30.0
+  },
+  {
+    "id": 2,
+    "name": "Fancy Plant",
+    "image": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&q=75&fit=crop&w=600",
+    "price": 9.0
+  },
+  {
+    "id": 3,
+    "name": "Elderly Cam",
+    "image": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&q=75&fit=crop&w=600",
+    "price": 45.0
+  },
+  {
+    "id": 4,
+    "name": "Shiny Shoe",
+    "image": "https://images.unsplash.com/photo-1560343090-f0409e92791a?auto=format&q=75&fit=crop&w=600",
+    "price": 29.0
+  },
+  {
+    "id": 5,
+    "name": "Spiky Plant",
+    "image": "https://images.unsplash.com/photo-1528476513691-07e6f563d97f?auto=format&q=75&fit=crop&w=600",
+    "price": 4.0
+  },
+  {
+    "id": 6,
+    "name": "Wieldy Film",
+    "image": "https://images.unsplash.com/photo-1612033448550-9d6f9c17f07d?auto=format&q=75&fit=crop&w=600",
+    "price": 19.0
+  },
+  {
+    "id": 7,
+    "name": "Sturdy Stand",
+    "image": "https://images.unsplash.com/photo-1579609598065-79f8e5bcfb70?auto=format&q=75&fit=crop&w=600",
+    "price": 12.0,
+    "discountedPrice": 24.0
+  },
+  {
+    "id": 8,
+    "name": "Lazy Bottle",
+    "image": "https://images.unsplash.com/photo-1619066045029-5c7e8537bd8c?auto=format&q=75&fit=crop&w=600",
+    "price": 9.0
+  }
+]

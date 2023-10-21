@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Define the styles for the scrollbar track (the background) */
+::-webkit-scrollbar {
+  @apply w-3; /* You can adjust the width as needed */
+}
+
+/* Define the styles for the scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  @apply transition-all duration-300 bg-indigo-300 rounded-full; /* Customize the class as needed */
+}
+
+/* Define the styles for the scrollbar track on the Y-axis (vertical scrollbar) */
+::-webkit-scrollbar-track {
+  @apply bg-white; /* Customize the class as needed */
+}
+
+/* Define the styles for the scrollbar thumb on the Y-axis (vertical scrollbar) */
+::-webkit-scrollbar-thumb:hover {
+  @apply transition-all duration-300 bg-indigo-500; /* Customize the class for a hover effect */
+}
