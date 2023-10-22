@@ -14,7 +14,7 @@ export async function GET() {
       {
         message: 'Ok',
         success: true,
-        cart,
+        cart: cart[0],
       },
       {
         status: 200,
