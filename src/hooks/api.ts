@@ -19,7 +19,7 @@ export async function getCartData() {
   if (!res.ok) {
     throw new Error('Failed to get cart data')
   }
-  return res.json()
+  return res
 }
 
 export async function getProductById({ _id }: { _id: string }) {
