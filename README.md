@@ -20,6 +20,13 @@
 - Mongodb for database
 - Typescript, Eslint, prettier for best practices and code organization.
 
+.env.local
+
+```
+NEXT_PUBLIC_MONGODB_URI=mongodb+srv://jrohila55:lm1Uzv0SqxIMAuiO@shopkrtdb.6nezayt.mongodb.net/?retryWrites=true&w=majority
+NEXT_PUBLIC_MONGODB_DB=shopkrtdb
+```
+
 ## API Routes -
 
 #### Connection Check
@@ -48,7 +55,8 @@
 
 ```
 {
-  "message": "ok",
+ "message": "Total product available: 0",
+  "success": true,
   "product": [
     {
       "name": "Top",

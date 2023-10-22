@@ -9,7 +9,7 @@ type Mongoose = {
 export default async function connectToDatabase(): Promise<Mongoose> {
   const connect: Mongoose = {
     db: null,
-    message: '',
+    message: 'Connecting...',
   }
   const { NEXT_PUBLIC_MONGODB_URI, NEXT_PUBLIC_MONGODB_DB } = process.env
   if (!NEXT_PUBLIC_MONGODB_URI) {
@@ -25,7 +25,7 @@ export default async function connectToDatabase(): Promise<Mongoose> {
       connect.message = 'Already connected to database'
       return connect
     }
-    if (!connect.db) {
+    if (!connect.db && mongoose.connection.readyState === 0) {
       const connection = await mongoose.connect(NEXT_PUBLIC_MONGODB_URI as string, {
         dbName: NEXT_PUBLIC_MONGODB_DB,
       })
