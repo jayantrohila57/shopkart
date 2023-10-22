@@ -16,7 +16,7 @@ interface Product {
 }
 const CartItem = async ({ product }: { product: Product }) => {
   return (
-    <div className="py-5 sm:py-8">
+    <div className="py-5">
       <div className="flex flex-wrap gap-4 sm:py-2.5 lg:gap-6">
         <div className="sm:-my-2.5">
           <Link href={product.link}>

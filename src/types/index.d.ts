@@ -1,10 +1,9 @@
-export interface CartItem {
-  image: string
+export interface IProduct {
+  _id: string
   name: string
-  defaultQuantity: number
-  itemPrice: number
-}
-
-export interface Cart {
-  items: CartItem[]
+  size: string
+  color: string
+  price: number
+  image: string
+  description: string
 }
