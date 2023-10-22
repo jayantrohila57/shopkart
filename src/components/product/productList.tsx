@@ -17,7 +17,7 @@ const ProductsList = async ({ products }: { products: IProduct[] }) => {
       <div className="grid gap-x-4 gap-y-8 sm:grid-cols-2 md:gap-x-6 lg:grid-cols-3 xl:grid-cols-4">
         {products?.map(({ _id, color, image, name, price, description, size }) => (
           <div key={_id}>
-            <div className="group relative mb-2 block h-80 overflow-hidden rounded-lg bg-gray-100 lg:mb-3">
+            <div className="group relative my-4 mb-2 block h-80 overflow-hidden rounded-lg bg-gray-100 lg:mb-3">
               <Image
                 src={image}
                 loading="lazy"
@@ -45,7 +45,7 @@ const ProductsList = async ({ products }: { products: IProduct[] }) => {
               </div>
               <button
                 type="button"
-                className="text-white w-full mt-2 transition-all duration-300 text-base ease-in-out hover:bg-indigo-700 bg-indigo-500 active:scale-95 px-2 py-1 rounded-lg"
+                className="text-black w-full mt-2 py-4 transition-all duration-300 text-base ease-in-out hover:bg-indigo-700 bg-gray-300 active:scale-95 px-4  rounded-lg"
                 // onClick={() => {
                 //   // Handle cart button click
                 // }}

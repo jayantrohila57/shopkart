@@ -1,31 +1,29 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import axios, { Method } from 'axios'
-
-import { IProduct } from '@/types'
-
-export interface ApiRequestConfig {
-  method: Method
-  route: string
-  payload?: object | IProduct
-}
-
-const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_URL,
-  timeout: 5000, // Adjust as needed
-})
-
-const API = async (config: ApiRequestConfig) => {
-  try {
-    const { method, route, payload } = config
-    const response = await api.request({
-      method,
-      url: route,
-      data: payload,
-    })
-    return response.data
-  } catch (error) {
-    return error
+export async function getProductList() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/product`)
+  if (!res.ok) {
+    throw new Error('Failed to get product list')
   }
+  return res.json()
 }
 
-export default API
+export async function getCartData() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cart`)
+  if (!res.ok) {
+    throw new Error('Failed to get cart data')
+  }
+  return res.json()
+}
+
+export async function getProductById({ _id }: { _id: string }) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/product/${_id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ _id }),
+  })
+  if (!res.ok) {
+    throw new Error('Failed to get product id')
+  }
+  return res.json()
+}
