@@ -6,7 +6,9 @@ import { getCartData } from '@/hooks/api'
 import { ICart } from '@/types'
 
 const Page: React.FC = async () => {
-  const cart = await getCartData()
+  const data = await getCartData()
+  const cart = await data.json()
+
   const { _id, products, totalAmount, totalItems }: ICart = cart[0]
   return (
     <section className="bg-white mt-10  max-w-5xl mx-auto">
