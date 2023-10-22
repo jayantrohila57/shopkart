@@ -5,7 +5,7 @@ import { ICartProduct } from '@/types'
 
 import DeleteProduct from './deleteProductButton'
 
-function Cartlist({ products }: { products: ICartProduct[] }) {
+function Cartlist({ products, cartId }: { products: ICartProduct[]; cartId: string }) {
   return (
     <div className="mb-5 md:col-span-8 max-w-2xl col-span-4 flex flex-col sm:mb-8 sm:divide-y sm:border-t sm:border-b">
       {products?.map(({ product, quantity }: ICartProduct) => {
@@ -41,11 +41,7 @@ function Cartlist({ products }: { products: ICartProduct[] }) {
                   <div className="flex flex-row ">
                     <span className="mb-1 block font-bold text-gray-800 md:text-lg">${product?.price}</span>
                   </div>
-                  <DeleteProduct
-                    _id="1485b5fe-f509-47f2-9095-751e8aa24ca3"
-                    productId={product?._id}
-                    key={product?._id}
-                  />
+                  <DeleteProduct _id={cartId} productId={product?._id} key={product?._id} />
                 </div>
 
                 <div className="flex flex-col items-start gap-2">
