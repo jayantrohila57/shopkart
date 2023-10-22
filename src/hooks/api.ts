@@ -1,10 +1,10 @@
 import { IAddToCart } from '@/types'
 
-const headers = {
-  'Content-Type': 'application/json',
-}
 export async function getProductList() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/product`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/product`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
   if (!res.ok) {
     throw new Error('Failed to get product list')
   }
@@ -12,7 +12,10 @@ export async function getProductList() {
 }
 
 export async function getCartData() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cart`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cart`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
   if (!res.ok) {
     throw new Error('Failed to get cart data')
   }
@@ -22,7 +25,7 @@ export async function getCartData() {
 export async function getProductById({ _id }: { _id: string }) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/product/${_id}`, {
     method: 'GET',
-    headers,
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ _id }),
   })
   if (!res.ok) {
@@ -34,7 +37,7 @@ export async function getProductById({ _id }: { _id: string }) {
 export async function deleteCartProduct({ _id, productId }: { _id: string; productId: string }) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cart`, {
     method: 'DELETE',
-    headers,
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ _id, productId }),
   })
   if (!res.ok) {
@@ -46,7 +49,7 @@ export async function deleteCartProduct({ _id, productId }: { _id: string; produ
 export async function addToCart({ _id, product, quantity }: IAddToCart) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cart`, {
     method: 'PUT',
-    headers,
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ _id, product, quantity }),
   })
   if (!res.ok) {

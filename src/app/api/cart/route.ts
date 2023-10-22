@@ -10,6 +10,7 @@ export async function GET() {
   try {
     await connectToDatabase()
     const cart: ICart[] = await Cart.find()
+
     return NextResponse.json(cart, {
       status: 200,
     })
