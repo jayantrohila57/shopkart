@@ -19,3 +19,9 @@ export interface ICart {
   totalAmount: number
   totalItems: number
 }
+
+export interface IAddToCart {
+  _id: string
+  product: IProduct
+  quantity: number
+}

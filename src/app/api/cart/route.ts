@@ -67,11 +67,9 @@ export async function POST(req: Request) {
 
 export async function PUT(request: Request) {
   try {
-    const { _id, products }: ICart = await request.json()
+    const { _id, product, quantity } = await request.json()
     await connectToDatabase()
-
-    // Update the cart in the database
-    const data = await Cart.findOneAndUpdate({ _id }, { products }, { new: true })
+    const data = await Cart.findOneAndUpdate({ _id }, { $push: { products: { product, quantity } } })
     return NextResponse.json(
       {
         message: 'Cart updated successfully',
@@ -86,6 +84,33 @@ export async function PUT(request: Request) {
     return NextResponse.json(
       {
         message: 'Error Cart update failed!',
+        success: false,
+        err,
+      },
+      { status: 500 },
+    )
+  }
+}
+export async function DELETE(request: Request) {
+  try {
+    const { _id, productId } = await request.json()
+    await connectToDatabase()
+    const data = await Cart.findOneAndUpdate({ _id }, { $pull: { products: { 'product._id': productId } } })
+
+    return NextResponse.json(
+      {
+        message: 'Product deleted successfully',
+        success: true,
+        data,
+      },
+      {
+        status: 200,
+      },
+    )
+  } catch (err) {
+    return NextResponse.json(
+      {
+        message: 'Error Product delete update failed!',
         success: false,
         err,
       },

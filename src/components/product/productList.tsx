@@ -3,6 +3,8 @@ import React from 'react'
 
 import { IProduct } from '@/types'
 
+import AddToCart from './addToCartButton'
+
 const ProductsList = async ({ products }: { products: IProduct[] }) => {
   return (
     <div className="mx-auto w-full mt-10">
@@ -43,15 +45,12 @@ const ProductsList = async ({ products }: { products: IProduct[] }) => {
                 </div>
                 <p className="text-gray-500 text-xs my-1">{description}</p>
               </div>
-              <button
-                type="button"
-                className="text-black w-full mt-2 py-4 transition-all duration-300 text-base ease-in-out hover:bg-indigo-700 bg-gray-300 active:scale-95 px-4  rounded-lg"
-                // onClick={() => {
-                //   // Handle cart button click
-                // }}
-              >
-                Add to cart
-              </button>
+              <AddToCart
+                _id="1485b5fe-f509-47f2-9095-751e8aa24ca3"
+                product={{ _id, color, image, name, price, description, size }}
+                quantity={1}
+                key={_id}
+              />
             </div>
           </div>
         ))}

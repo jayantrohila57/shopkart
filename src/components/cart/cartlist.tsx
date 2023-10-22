@@ -3,18 +3,20 @@ import React from 'react'
 
 import { ICartProduct } from '@/types'
 
+import DeleteProduct from './deleteProductButton'
+
 function Cartlist({ products }: { products: ICartProduct[] }) {
   return (
     <div className="mb-5 md:col-span-8 max-w-2xl col-span-4 flex flex-col sm:mb-8 sm:divide-y sm:border-t sm:border-b">
       {products?.map(({ product, quantity }: ICartProduct) => {
         return (
-          <div className="my-1 border-2 rounded-lg p-5">
+          <div key={product?._id} className="my-1 border-2 rounded-lg p-5">
             <div className="flex flex-wrap gap-4 sm:py-2.5 lg:gap-6">
               <div className="sm:-my-2.5">
                 <div className="group relative block h-24 w-24 overflow-hidden rounded-lg bg-gray-100 sm:h-40 sm:w-40">
                   <Image
-                    src={product.image}
-                    alt={product.name}
+                    src={product?.image}
+                    alt={product?.name}
                     loading="lazy"
                     fill
                     className="h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
@@ -25,26 +27,25 @@ function Cartlist({ products }: { products: ICartProduct[] }) {
               <div className="flex flex-1 flex-col justify-between">
                 <div>
                   <div className="mb-1 inline-block text-lg font-bold text-gray-800 transition duration-100 hover:text-gray-500 lg:text-xl">
-                    {product.name}
+                    {product?.name}
                   </div>
-                  <span className="block text-gray-500 text-sm md:text-lg">{product.description}</span>
+                  <span className="block text-gray-500 text-sm md:text-lg">{product?.description}</span>
                 </div>
                 <div className="flex flex-row gap-2">
-                  <span className="block text-gray-500 text-sm md:text-lg">Size: {product.size}</span>
-                  <span className="block text-gray-500 text-sm md:text-lg">Color: {product.color}</span>
+                  <span className="block text-gray-500 text-sm md:text-lg">Size: {product?.size}</span>
+                  <span className="block text-gray-500 text-sm md:text-lg">Color: {product?.color}</span>
                 </div>
               </div>
               <div className="flex w-full md:flex-col flex-row  justify-between border-t pt-4 sm:w-auto sm:border-none sm:pt-0">
                 <div className="flex flex-col justify-center items-start">
                   <div className="flex flex-row ">
-                    <span className="mb-1 block font-bold text-gray-800 md:text-lg">${product.price}</span>
+                    <span className="mb-1 block font-bold text-gray-800 md:text-lg">${product?.price}</span>
                   </div>
-                  <button
-                    type="button"
-                    className="select-none text-sm font-semibold text-indigo-500 transition duration-100 hover:text-indigo-600 active:text-indigo-700"
-                  >
-                    Delete
-                  </button>
+                  <DeleteProduct
+                    _id="1485b5fe-f509-47f2-9095-751e8aa24ca3"
+                    productId={product?._id}
+                    key={product?._id}
+                  />
                 </div>
 
                 <div className="flex flex-col items-start gap-2">
