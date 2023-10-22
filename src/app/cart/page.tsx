@@ -1,53 +1,27 @@
 import React from 'react'
 
-import Cart from '@/components/cart/cart'
+import CartCheckout from '@/components/cart/cartCheckout'
+import Cartlist from '@/components/cart/cartlist'
+import { getCartData } from '@/hooks/api'
+import { ICart } from '@/types'
 
-interface Product {
-  name: string
-  size: string
-  color: string
-  price: string
-  inStock: boolean
-  link: string
-  image: string
-  quantity: number
-}
 const Page: React.FC = async () => {
-  const subtotal = '$129.99'
-  const shipping = '$4.99'
-  const total = '$134.98 USD'
-  const products: Product[] = [
-    {
-      name: 'Top',
-      size: 'S',
-      color: 'White',
-      price: '$15.00',
-      inStock: true,
-      link: '/product/top', // Replace with the actual product URL
-      image: 'https://images.unsplash.com/photo-1612681621979-fffe5920dbe8?auto=format&q=75&fit=crop&w=200',
-      quantity: 1,
-    },
-    {
-      name: 'Jacket',
-      size: 'M',
-      color: 'Black',
-      price: '$65.00',
-      inStock: true,
-      link: '/product/jacket', // Replace with the actual product URL
-      image: 'https://images.unsplash.com/photo-1542327897-4141b355e20e?auto=format&q=75&fit=crop&w=200',
-      quantity: 1,
-    },
-    {
-      name: 'Business suit',
-      size: 'S',
-      color: 'Black',
-      price: '$49.99',
-      inStock: true,
-      link: '/product/business-suit', // Replace with the actual product URL
-      image: 'https://images.unsplash.com/photo-1590926938512-c0d7e5c39abd?auto=format&q=75&fit=crop&w=200',
-      quantity: 1,
-    },
-  ]
-  return <Cart products={products} subtotal={subtotal} shipping={shipping} total={total} />
+  const cart = await getCartData()
+  if (!cart) {
+    return <div>loading...</div>
+  }
+  const data = cart?.cart[0]
+  const { products, totalAmount, totalItems }: ICart = data
+  return (
+    <section className="bg-white mt-10  max-w-5xl mx-auto">
+      <div className="mb-6 ">
+        <h2 className="mb-4 text-center text-2xl font-bold text-gray-800   lg:text-3xl">Your Cart</h2>
+      </div>
+      <div className="grid md:grid-cols-12 gap-5 grid-cols-4">
+        {products && <Cartlist products={products} />}
+        {data && <CartCheckout totalAmount={totalAmount} totalItems={totalItems} />}
+      </div>
+    </section>
+  )
 }
 export default Page

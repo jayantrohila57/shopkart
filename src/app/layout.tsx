@@ -6,7 +6,6 @@ import React from 'react'
 
 import Footer from '@/components/layout/footer'
 import Header from '@/components/layout/header'
-import footer from '@/data/footer.json'
 import header from '@/data/header.json'
 
 const poppins = Poppins({
@@ -22,11 +21,11 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="min-h-screen bg-background font-sans antialiased">
+    <html lang="en" className="min-h-screen bg-background antialiased">
       <body className={poppins.className}>
         <Header links={header} />
-        <main className="max-w-7xl min-h-screen pt-10 mx-auto px-5 md:px-0">{children}</main>
-        <Footer links={footer} />
+        <main className="max-w-7xl container min-h-[80vh] pt-10 mx-auto px-5">{children}</main>
+        <Footer />
       </body>
     </html>
   )
