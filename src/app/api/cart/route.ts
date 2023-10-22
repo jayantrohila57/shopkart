@@ -10,16 +10,9 @@ export async function GET() {
   try {
     await connectToDatabase()
     const cart: ICart[] = await Cart.find()
-    return NextResponse.json(
-      {
-        message: 'Ok',
-        success: true,
-        cart: cart[0],
-      },
-      {
-        status: 200,
-      },
-    )
+    return NextResponse.json(cart, {
+      status: 200,
+    })
   } catch (err) {
     return NextResponse.json(
       {

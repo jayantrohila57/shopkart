@@ -8,7 +8,7 @@ import DeleteProduct from './deleteProductButton'
 function Cartlist({ products, cartId }: { products: ICartProduct[]; cartId: string }) {
   return (
     <div className="mb-5 md:col-span-8 max-w-2xl col-span-4 flex flex-col sm:mb-8 sm:divide-y sm:border-t sm:border-b">
-      {products?.map(({ product, quantity }: ICartProduct) => {
+      {products?.map(({ product }: ICartProduct) => {
         return (
           <div key={product?._id} className="my-1 border-2 rounded-lg p-5">
             <div className="flex flex-wrap gap-4 sm:py-2.5 lg:gap-6">
@@ -48,7 +48,7 @@ function Cartlist({ products, cartId }: { products: ICartProduct[]; cartId: stri
                   <div className="flex h-12 w-20 rounded border">
                     <input
                       type="text"
-                      value={quantity}
+                      // value={quantity}
                       className="w-full px-4 py-2 outline-none ring-inset ring-indigo-300 transition duration-100 focus:ring"
                     />
 
