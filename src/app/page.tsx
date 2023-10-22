@@ -1,15 +1,19 @@
 import React from 'react'
 
 import ProductsList from '@/components/product/productList'
-import API from '@/hooks/api'
 import { IProduct } from '@/types'
 
+async function getData() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/product`, { cache: 'force-cache' })
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+  return res.json()
+}
+
 const Home: React.FC = async () => {
-  const response = await API({
-    method: 'GET',
-    route: '/api/product',
-  })
-  const products: IProduct[] = response?.product
+  const data = await getData()
+  const products: IProduct[] = data?.product
   return <ProductsList products={products} />
 }
 export default Home
