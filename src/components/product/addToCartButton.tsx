@@ -10,10 +10,10 @@ import { IAddToCart } from '@/types'
 function AddToCart({ _id, product, quantity }: IAddToCart) {
   const [isDisabled, setIsDisabled] = useState(false)
 
-  function success() {
+  function Success() {
     toast.success('Product Added to Cart.')
   }
-  function failed() {
+  function Failed() {
     toast.error('Error! Product Not Added in Cart')
   }
   const handleAddToCart = async () => {
@@ -26,9 +26,9 @@ function AddToCart({ _id, product, quantity }: IAddToCart) {
 
     try {
       await addToCart({ _id, product, quantity })
-      success()
+      Success()
     } catch (error) {
-      failed()
+      Failed()
     } finally {
       // Enable the button after 1 second (1000 milliseconds).
       setTimeout(() => {

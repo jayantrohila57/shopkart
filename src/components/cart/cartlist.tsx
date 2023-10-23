@@ -15,7 +15,7 @@ function Cartlist({
   refetch: () => void
 }) {
   return (
-    <div className="mb-5 md:col-span-8 max-w-2xl col-span-4 flex flex-col sm:mb-8 sm:divide-y sm:border-t sm:border-b">
+    <div className="mb-5 md:col-span-8 max-w-2xl h-auto md:pr-2 pr-0 md:h-[60vh] overflow-auto col-span-4 flex flex-col sm:mb-8  ">
       {products?.length < 1 && (
         <div className="h-full w-full flex justify-center items-center">Your cart is empty add product </div>
       )}
