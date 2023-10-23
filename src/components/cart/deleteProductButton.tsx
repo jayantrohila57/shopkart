@@ -9,10 +9,10 @@ import { deleteCartProduct } from '@/hooks/api'
 function DeleteProduct({ _id, productId, refetch }: { _id: string; productId: string; refetch: () => void }) {
   const [isDisabled, setIsDisabled] = useState(false)
 
-  function success() {
+  function Success() {
     toast.success('Product Removed from Cart.')
   }
-  function failed() {
+  function Failed() {
     toast.error('Error! Product Not removed from Cart')
   }
 
@@ -24,10 +24,10 @@ function DeleteProduct({ _id, productId, refetch }: { _id: string; productId: st
     setIsDisabled(true)
 
     try {
-      await deleteCartProduct({ _id, productId })
-      success()
+      await deleteCartProduct(_id, productId)
+      Success()
     } catch (error) {
-      failed()
+      Failed()
     } finally {
       setTimeout(() => {
         refetch()

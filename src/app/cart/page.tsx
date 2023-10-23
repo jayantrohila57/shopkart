@@ -34,7 +34,11 @@ function Page() {
   }
 
   if (loading) {
-    return <div className="text-center mt-10">Loading your cart...</div>
+    return (
+      <div className="flex h-[80vh] w-full animate-pulse justify-center items-center text-4xl ">
+        Loading...
+      </div>
+    )
   }
 
   if (error) {

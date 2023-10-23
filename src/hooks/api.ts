@@ -1,67 +1,42 @@
 import { IAddToCart } from '@/types'
 
-export async function getProductList() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/product`, {
-    method: 'GET',
+const apiUrl: string = process.env.NEXT_PUBLIC_URL as string
+
+interface FetchDataOptions {
+  method: string
+  data?: object | null
+}
+
+async function fetchData(url: string, options: FetchDataOptions = { method: 'GET', data: null }) {
+  const response = await fetch(apiUrl + url, {
+    method: options.method,
     headers: { 'Content-Type': 'application/json' },
     cache: 'no-store',
+    body: JSON.stringify(options.data),
   })
-  if (!res.ok) {
-    throw new Error('Failed to get product list')
-  }
-  return res.json()
+  return response.json()
+}
+
+export async function getProductList() {
+  return fetchData('/api/product', { method: 'GET' })
 }
 
 export async function getCartData() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cart`, {
-    method: 'GET',
-    headers: { 'Content-Type': 'text/html' },
-    cache: 'no-store',
-  })
-  if (!res.ok) {
-    console.error('Failed to get product')
-  }
-  return res.json()
+  return fetchData('/api/cart', { method: 'GET' })
 }
+
 export async function refetchGetCartData() {
   return getCartData()
 }
 
-export async function getProductById({ _id }: { _id: string }) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/product/${_id}`, {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ _id }),
-    cache: 'no-store',
-  })
-  if (!res.ok) {
-    throw new Error('Failed to get product id')
-  }
-  return res.json()
+export async function getProductById(_id: string) {
+  return fetchData(`/api/product/${_id}`, { method: 'GET', data: { _id } })
 }
 
-export async function deleteCartProduct({ _id, productId }: { _id: string; productId: string }) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cart`, {
-    method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ _id, productId }),
-    cache: 'no-store',
-  })
-  if (!res.ok) {
-    throw new Error('Failed to delete product ')
-  }
-  return res.json()
+export async function deleteCartProduct(_id: string, productId: string) {
+  return fetchData('/api/cart', { method: 'DELETE', data: { _id, productId } })
 }
 
 export async function addToCart({ _id, product, quantity }: IAddToCart) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cart`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ _id, product, quantity }),
-    cache: 'no-store',
-  })
-  if (!res.ok) {
-    throw new Error('Failed to Add product ')
-  }
-  return res.json()
+  return fetchData('/api/cart', { method: 'PUT', data: { _id, product, quantity } })
 }
