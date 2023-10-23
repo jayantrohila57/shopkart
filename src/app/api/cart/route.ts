@@ -7,10 +7,10 @@ import Cart from '@/models/cart'
 import { ICart } from '@/types'
 
 export async function GET() {
+  const _id = '1485b5fe-f509-47f2-9095-751e8aa24ca3'
   try {
     await connectToDatabase()
-
-    const cart = await Cart.find()
+    const cart = await Cart.findById({ _id })
     return NextResponse.json(cart, {
       status: 200,
     })
@@ -88,6 +88,7 @@ export async function PUT(request: Request) {
 export async function DELETE(request: Request) {
   try {
     const { _id, productId } = await request.json()
+    console.log({ _id, productId })
     await connectToDatabase()
     const data = await Cart.findOneAndUpdate({ _id }, { $pull: { products: { 'product._id': productId } } })
 

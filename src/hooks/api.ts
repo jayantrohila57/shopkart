@@ -12,9 +12,12 @@ export async function getProductList() {
 }
 
 export async function getCartData() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cart`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cart`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'text/html' },
+  })
   if (!res.ok) {
-    throw new Error('Failed to get cart data')
+    console.error('Failed to get product')
   }
   return res.json()
 }
