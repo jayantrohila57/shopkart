@@ -4,17 +4,36 @@ import { v4 as uuidv4 } from 'uuid'
 
 import connectToDatabase from '@/lib/db'
 import Cart from '@/models/cart'
-import { IAddToCart, ICart } from '@/types'
+import { IAddToCart, ICart, ICartProduct } from '@/types'
 
-export async function GET() {
-  const _id = '1485b5fe-f509-47f2-9095-751e8aa24ca3'
+export async function GET(): Promise<NextResponse> {
+  const _id: string = 'd36908b4-eb7f-4309-adac-736ab4d4a3ef'
+
   try {
     await connectToDatabase()
-    const cart = await Cart.findById({ _id })
+    const cart: ICart | null = await Cart.findById({ _id })
+
+    if (!cart) {
+      return NextResponse.json('Cart not found!', { status: 404 })
+    }
+
+    // Calculate totalAmount and totalItems
+    const totalAmount: number = cart.products.reduce(
+      (total: number, item: ICartProduct) => total + item.product.price * item.quantity,
+      0,
+    )
+    const totalItems: number = cart.products.reduce(
+      (total: number, item: ICartProduct) => total + item.quantity,
+      0,
+    )
+
+    // Update the cart with the new totalAmount and totalItems
+    await Cart.findOneAndUpdate({ _id }, { $set: { totalAmount, totalItems } })
+
     return NextResponse.json(cart, {
       status: 200,
     })
-  } catch (err) {
+  } catch (err: any) {
     return NextResponse.json(
       {
         message: 'Error',
@@ -63,43 +82,37 @@ export async function PUT(request: Request) {
   try {
     const { _id, product, quantity } = await request.json()
     await connectToDatabase()
-
     const cart = await Cart.findOne({ _id })
-
-    const existingProduct = cart.products.find((item: IAddToCart) => item.product._id === product._id)
-
-    if (existingProduct) {
-      return NextResponse.json(
-        {
-          message: 'Already added in cart',
-          success: true,
-        },
-        {
-          status: 200,
-        },
-      )
+    if (!cart) {
+      return NextResponse.json('Cart not found!', { status: 404 })
     }
+    const existingProduct = cart.products.find(
+      (item: IAddToCart) => item.product._id === product._id && item.quantity === quantity,
+    )
+    if (existingProduct) {
+      return NextResponse.json('Product Alreaded added', { status: 201 })
+    }
+
+    const productQuantity = cart.products.find((item: IAddToCart) => item.product._id === product._id)
+
+    if (productQuantity) {
+      if (quantity >= 1) {
+        await Cart.findOneAndUpdate(
+          { _id, 'products.product._id': product._id },
+          { $set: { 'products.$.quantity': quantity } },
+        )
+        return NextResponse.json('Quantity updated', { status: 201 })
+      }
+      return NextResponse.json('Quantity cannot be updated to a zero', { status: 400 })
+    }
+
     await Cart.findOneAndUpdate({ _id }, { $push: { products: { product, quantity } } })
-    return NextResponse.json(
-      {
-        message: 'Cart updated successfully',
-        success: true,
-      },
-      {
-        status: 200,
-      },
-    )
+    return NextResponse.json('Product added succeffully', { status: 200 })
   } catch (err) {
-    return NextResponse.json(
-      {
-        message: 'Error Cart update failed!',
-        success: false,
-        err,
-      },
-      { status: 500 },
-    )
+    return NextResponse.json('Error Cart update failed!', { status: 500 })
   }
 }
+
 export async function DELETE(request: Request) {
   try {
     const { _id, productId } = await request.json()

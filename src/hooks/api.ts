@@ -40,3 +40,10 @@ export async function deleteCartProduct(_id: string, productId: string) {
 export async function addToCart({ _id, product, quantity }: IAddToCart) {
   return fetchData('/api/cart', { method: 'PUT', data: { _id, product, quantity } })
 }
+
+export async function decreaseProductQuantity({ _id, product, quantity }: IAddToCart) {
+  return fetchData('/api/cart', { method: 'PUT', data: { _id, product, quantity } })
+}
+export async function increaseProductQuantity({ _id, product, quantity }: IAddToCart) {
+  return fetchData('/api/cart', { method: 'PUT', data: { _id, product, quantity } })
+}

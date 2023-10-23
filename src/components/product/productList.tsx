@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import React from 'react'
 
 import { IProduct } from '@/types'
 
@@ -47,7 +46,7 @@ function ProductsList({ products }: { products: IProduct[] }) {
               </div>
               {_id && (
                 <AddToCart
-                  _id="1485b5fe-f509-47f2-9095-751e8aa24ca3"
+                  _id="d36908b4-eb7f-4309-adac-736ab4d4a3ef"
                   product={{ _id, color, image, name, price, description, size }}
                   quantity={1}
                   key={_id}

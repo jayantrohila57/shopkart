@@ -2,24 +2,20 @@
 
 import React, { useEffect, useState } from 'react'
 
-import CartCheckout from '@/components/cart/cartCheckout'
 import Cartlist from '@/components/cart/cartlist'
 import { getCartData } from '@/hooks/api'
 import { ICart } from '@/types'
 
 function Page() {
   const [cart, setCart] = useState<ICart | null>(null)
-  const [loading, setLoading] = useState(true)
   const [error, setError] = useState<unknown>(null)
 
   const fetchData = async () => {
     try {
       const cartData: ICart = await getCartData()
       setCart(cartData)
-      setLoading(false)
     } catch (err) {
       setError(err)
-      setLoading(false)
     }
   }
 
@@ -28,17 +24,7 @@ function Page() {
   }, [])
 
   const handleRefresh = () => {
-    setLoading(true)
-    setError(null)
     fetchData()
-  }
-
-  if (loading) {
-    return (
-      <div className="flex h-[80vh] w-full animate-pulse justify-center items-center text-4xl ">
-        Loading...
-      </div>
-    )
   }
 
   if (error) {
@@ -54,7 +40,7 @@ function Page() {
 
   if (!cart) {
     return (
-      <div className="text-center ">
+      <div className="text-center">
         No data available.
         <button type="button" onClick={handleRefresh}>
           Refresh
@@ -63,6 +49,7 @@ function Page() {
     )
   }
 
+  // Move these assignments inside the if (!cart) block to ensure they get updated on every refetch.
   const { _id, products, totalAmount, totalItems } = cart
 
   return (
@@ -72,7 +59,33 @@ function Page() {
       </div>
       <div className="grid md:grid-cols-12 gap-5 grid-cols-4">
         {cart && <Cartlist refetch={handleRefresh} products={products} cartId={_id} />}
-        {cart && <CartCheckout totalAmount={totalAmount} totalItems={totalItems} />}
+        {cart && (
+          <div className="flex col-span-4 flex-col items-end gap-4">
+            <div className="w-full rounded-lg bg-gray-100 p-4 sm:max-w-xs">
+              <div className="space-y-1">
+                <div className="flex justify-between gap-4 text-gray-900">
+                  <span>Total items</span>
+                  <span>{totalItems}</span>
+                </div>
+              </div>
+              <div className="mt-4 border-t pt-4">
+                <div className="flex items-start justify-between gap-4 text-gray-900">
+                  <span className="text-lg font-bold">Total</span>
+                  <span className="flex flex-col items-end">
+                    <span className="text-lg font-bold">${totalAmount}</span>
+                    <span className="text-sm text-gray-500">including VAT</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              className="inline-block rounded-lg bg-gray-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-gray-300 transition duration-100 hover:bg-gray-600 focus-visible:ring active-bg-gray-700 md:text-base"
+            >
+              Check out
+            </button>
+          </div>
+        )}
       </div>
     </section>
   )
