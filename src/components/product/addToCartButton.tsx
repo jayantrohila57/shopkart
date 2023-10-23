@@ -2,13 +2,15 @@
 
 import React from 'react'
 
-import { addToCart } from '@/hooks/api'
+import { addToCart, refetchGetCartData } from '@/hooks/api'
 import { IAddToCart } from '@/types'
 
 function AddToCart({ _id, product, quantity }: IAddToCart) {
   const handleAddToCart = async () => {
     try {
-      return await addToCart({ _id, product, quantity })
+      const res = await addToCart({ _id, product, quantity })
+      refetchGetCartData()
+      return res
     } catch (error) {
       return error
     }

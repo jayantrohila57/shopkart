@@ -4,10 +4,12 @@ import React from 'react'
 
 import { deleteCartProduct } from '@/hooks/api'
 
-function DeleteProduct({ _id, productId }: { _id: string; productId: string }) {
+function DeleteProduct({ _id, productId, refetch }: { _id: string; productId: string; refetch: () => void }) {
   const handleDelete = async () => {
     try {
-      return await deleteCartProduct({ _id, productId })
+      const res = await deleteCartProduct({ _id, productId })
+      refetch()
+      return res
     } catch (error) {
       return error
     }

@@ -4,6 +4,7 @@ export async function getProductList() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/product`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
+    cache: 'no-store',
   })
   if (!res.ok) {
     throw new Error('Failed to get product list')
@@ -15,11 +16,15 @@ export async function getCartData() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cart`, {
     method: 'GET',
     headers: { 'Content-Type': 'text/html' },
+    cache: 'no-store',
   })
   if (!res.ok) {
     console.error('Failed to get product')
   }
   return res.json()
+}
+export async function refetchGetCartData() {
+  return getCartData()
 }
 
 export async function getProductById({ _id }: { _id: string }) {
@@ -27,6 +32,7 @@ export async function getProductById({ _id }: { _id: string }) {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ _id }),
+    cache: 'no-store',
   })
   if (!res.ok) {
     throw new Error('Failed to get product id')
@@ -39,6 +45,7 @@ export async function deleteCartProduct({ _id, productId }: { _id: string; produ
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ _id, productId }),
+    cache: 'no-store',
   })
   if (!res.ok) {
     throw new Error('Failed to delete product ')
@@ -51,6 +58,7 @@ export async function addToCart({ _id, product, quantity }: IAddToCart) {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ _id, product, quantity }),
+    cache: 'no-store',
   })
   if (!res.ok) {
     throw new Error('Failed to Add product ')
