@@ -1,14 +1,15 @@
 import React from 'react'
 
-import CartCheckout from '@/components/cart/cartCheckout'
+// import CartCheckout from '@/components/cart/cartCheckout'
 // import Cartlist from '@/components/cart/cartlist'
 import { getCartData } from '@/hooks/api'
 // import { ICart } from '@/types'
 
 const Page: React.FC = async () => {
   const cart = await getCartData()
+  console.log(cart)
 
-  const { totalAmount, totalItems } = cart[0]
+  // const { totalAmount, totalItems } = cart[0]
   return (
     <section className="bg-white mt-10  max-w-5xl mx-auto">
       <div className="mb-6 ">
@@ -16,7 +17,7 @@ const Page: React.FC = async () => {
       </div>
       <div className="grid md:grid-cols-12 gap-5 grid-cols-4">
         {/* {products && <Cartlist products={products} cartId={_id} />} */}
-        {cart && <CartCheckout totalAmount={totalAmount} totalItems={totalItems} />}
+        {/* {cart && <CartCheckout totalAmount={totalAmount} totalItems={totalItems} />} */}
       </div>
     </section>
   )
