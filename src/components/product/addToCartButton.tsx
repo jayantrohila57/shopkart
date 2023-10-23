@@ -18,12 +18,9 @@ function AddToCart({ _id, product, quantity }: IAddToCart) {
   }
   const handleAddToCart = async () => {
     if (isDisabled) {
-      return // Don't allow multiple clicks while disabled.
+      return
     }
-
-    // Set the button to disabled while processing.
     setIsDisabled(true)
-
     try {
       await addToCart({ _id, product, quantity })
       Success()

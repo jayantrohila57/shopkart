@@ -19,15 +19,7 @@ function CartButton() {
   }
 
   useEffect(() => {
-    // Initial fetch
     fetchCartData()
-
-    // // Periodically update cart data and quantity
-    // const interval = setInterval(() => {
-    //   fetchCartData()
-    // }, 5000)
-
-    // return () => clearInterval(interval)
   }, [cartQuantity])
   return (
     <button type="button" className="text-black hover:text-indigo-500 relative">

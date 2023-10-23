@@ -28,25 +28,25 @@ function Cartlist({
 
   // Function to handle increment
   const handleIncrement = async (product: IProduct, quantity: number) => {
-    if (isDisabled) return // Do nothing if disabled
-    setIsDisabled(true) // Disable the buttons
+    if (isDisabled) return
+    setIsDisabled(true)
     await increaseProductQuantity({ _id: cartId, product, quantity })
     Success()
   }
 
   // Function to handle decrement
   const handleDecrement = async (product: IProduct, quantity: number) => {
-    if (isDisabled) return // Do nothing if disabled
-    setIsDisabled(true) // Disable the buttons
+    if (isDisabled) return
+    setIsDisabled(true)
     await decreaseProductQuantity({ _id: cartId, product, quantity })
     Success()
   }
-  // Use useEffect to reset isDisabled after 1 second
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsDisabled(false)
       refetch()
-    }, 1000) // 1000ms = 1 second
+    }, 1000)
     return () => clearTimeout(timer)
   }, [isDisabled])
 
@@ -118,7 +118,7 @@ function Cartlist({
                           className={`flex w-6 text-black flex-1 select-none items-center justify-center bg-white disabled:text-gray-100 leading-none transition duration-100 hover:bg-gray-100 active:bg-gray-200 ${
                             isDisabled ? 'opacity-50 cursor-not-allowed' : ''
                           }`}
-                          disabled={quantity < 1} // Disable if quantity is less than 1
+                          disabled={quantity < 1}
                         >
                           +
                         </button>
@@ -128,7 +128,7 @@ function Cartlist({
                           className={`flex w-6 text-black flex-1 select-none items-center justify-center disabled:text-gray-100 bg-white leading-none transition duration-100 hover:bg-gray-100 active-bg-gray-200 ${
                             isDisabled ? 'opacity-50 cursor-not-allowed' : ''
                           }`}
-                          disabled={quantity < 2} // Disable if quantity is less than 2
+                          disabled={quantity < 2}
                         >
                           -
                         </button>

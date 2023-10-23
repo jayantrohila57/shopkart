@@ -56,7 +56,6 @@ function Page() {
     )
   }
 
-  // Move these assignments inside the if (!cart) block to ensure they get updated on every refetch.
   const { _id, products } = cart
 
   return (

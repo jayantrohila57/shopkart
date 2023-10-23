@@ -50,11 +50,11 @@ const cartSchema = new Schema({
   ],
   totalAmount: {
     type: Number,
-    default: 0, // You can set a default value if needed
+    default: 0,
   },
   totalItems: {
     type: Number,
-    default: 0, // You can set a default value if needed
+    default: 0,
   },
 })
 

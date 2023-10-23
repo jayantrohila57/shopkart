@@ -113,7 +113,7 @@ export async function PUT(request: Request) {
 
     await Cart.findOneAndUpdate({ _id }, { $push: { products: { product, quantity } } })
     const update = await Cart.findOne({ _id })
-    // Calculate totalAmount and totalItems
+
     const totalAmount: number = update.products.reduce(
       (total: number, item: ICartProduct) => total + item.product.price * item.quantity,
       0,

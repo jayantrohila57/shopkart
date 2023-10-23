@@ -6,7 +6,6 @@ import React from 'react'
 
 import Footer from '@/components/layout/footer'
 import Header from '@/components/layout/header'
-import header from '@/data/header.json'
 
 const poppins = Poppins({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
@@ -23,7 +22,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en" className="min-h-screen bg-background antialiased">
       <body className={poppins.className}>
-        <Header links={header} />
+        <Header />
         <main className="max-w-7xl container min-h-[80vh] pt-10 mx-auto px-5">{children}</main>
         <Footer />
       </body>
