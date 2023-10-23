@@ -33,7 +33,7 @@ export async function GET(): Promise<NextResponse> {
     return NextResponse.json(cart, {
       status: 200,
     })
-  } catch (err: any) {
+  } catch (err) {
     return NextResponse.json(
       {
         message: 'Error',
