@@ -5,7 +5,7 @@ import { IProduct } from '@/types'
 
 import AddToCart from './addToCartButton'
 
-const ProductsList = async ({ products }: { products: IProduct[] }) => {
+function ProductsList({ products }: { products: IProduct[] }) {
   return (
     <div className="mx-auto w-full mt-10">
       <div className="py-10">
@@ -45,12 +45,14 @@ const ProductsList = async ({ products }: { products: IProduct[] }) => {
                 </div>
                 <p className="text-gray-500 text-xs my-1">{description}</p>
               </div>
-              <AddToCart
-                _id="1485b5fe-f509-47f2-9095-751e8aa24ca3"
-                product={{ _id, color, image, name, price, description, size }}
-                quantity={1}
-                key={_id}
-              />
+              {_id && (
+                <AddToCart
+                  _id="1485b5fe-f509-47f2-9095-751e8aa24ca3"
+                  product={{ _id, color, image, name, price, description, size }}
+                  quantity={1}
+                  key={_id}
+                />
+              )}
             </div>
           </div>
         ))}
