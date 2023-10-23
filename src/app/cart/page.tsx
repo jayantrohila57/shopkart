@@ -34,12 +34,12 @@ function Page() {
   }
 
   if (loading) {
-    return <div className="text-center">Loading your cart...</div>
+    return <div className="text-center mt-10">Loading your cart...</div>
   }
 
   if (error) {
     return (
-      <div className="text-center text-red-500">
+      <div className="text-center mt-10 text-red-500">
         Error
         <button type="button" onClick={handleRefresh}>
           Refresh
@@ -50,7 +50,7 @@ function Page() {
 
   if (!cart) {
     return (
-      <div className="text-center">
+      <div className="text-center ">
         No data available.
         <button type="button" onClick={handleRefresh}>
           Refresh
