@@ -28,7 +28,7 @@ function CartButton() {
     // }, 5000)
 
     // return () => clearInterval(interval)
-  }, [])
+  }, [cartQuantity])
   return (
     <button type="button" className="text-black hover:text-indigo-500 relative">
       <svg
