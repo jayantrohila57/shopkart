@@ -23,9 +23,7 @@ function Cartlist({
 
   function Success() {
     toast.success('Product Removed from Cart.')
-    setTimeout(() => {
-      refetch()
-    }, 1000)
+    setTimeout(() => {}, 1000)
   }
 
   // Function to handle increment
@@ -47,6 +45,7 @@ function Cartlist({
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsDisabled(false)
+      refetch()
     }, 1000) // 1000ms = 1 second
     return () => clearTimeout(timer)
   }, [isDisabled])

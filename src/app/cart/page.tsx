@@ -9,11 +9,18 @@ import { ICart } from '@/types'
 function Page() {
   const [cart, setCart] = useState<ICart | null>(null)
   const [error, setError] = useState<unknown>(null)
-
+  const [data, setdata] = useState<{ totalAmount: number; totalItems: number }>({
+    totalAmount: 0,
+    totalItems: 0,
+  })
   const fetchData = async () => {
     try {
       const cartData: ICart = await getCartData()
       setCart(cartData)
+      setdata({
+        totalAmount: cartData?.totalAmount,
+        totalItems: cartData?.totalItems,
+      })
     } catch (err) {
       setError(err)
     }
@@ -50,7 +57,7 @@ function Page() {
   }
 
   // Move these assignments inside the if (!cart) block to ensure they get updated on every refetch.
-  const { _id, products, totalAmount, totalItems } = cart
+  const { _id, products } = cart
 
   return (
     <section className="bg-white mt-10 max-w-5xl mx-auto">
@@ -65,14 +72,14 @@ function Page() {
               <div className="space-y-1">
                 <div className="flex justify-between gap-4 text-gray-900">
                   <span>Total items</span>
-                  <span>{totalItems}</span>
+                  <span>{data?.totalItems}</span>
                 </div>
               </div>
               <div className="mt-4 border-t pt-4">
                 <div className="flex items-start justify-between gap-4 text-gray-900">
                   <span className="text-lg font-bold">Total</span>
                   <span className="flex flex-col items-end">
-                    <span className="text-lg font-bold">${totalAmount}</span>
+                    <span className="text-lg font-bold">${data?.totalAmount}</span>
                     <span className="text-sm text-gray-500">including VAT</span>
                   </span>
                 </div>

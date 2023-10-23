@@ -16,8 +16,6 @@ export async function GET(): Promise<NextResponse> {
     if (!cart) {
       return NextResponse.json('Cart not found!', { status: 404 })
     }
-
-    // Calculate totalAmount and totalItems
     const totalAmount: number = cart.products.reduce(
       (total: number, item: ICartProduct) => total + item.product.price * item.quantity,
       0,
@@ -26,10 +24,7 @@ export async function GET(): Promise<NextResponse> {
       (total: number, item: ICartProduct) => total + item.quantity,
       0,
     )
-
-    // Update the cart with the new totalAmount and totalItems
     await Cart.findOneAndUpdate({ _id }, { $set: { totalAmount, totalItems } })
-
     return NextResponse.json(cart, {
       status: 200,
     })
@@ -86,6 +81,7 @@ export async function PUT(request: Request) {
     if (!cart) {
       return NextResponse.json('Cart not found!', { status: 404 })
     }
+
     const existingProduct = cart.products.find(
       (item: IAddToCart) => item.product._id === product._id && item.quantity === quantity,
     )
@@ -101,12 +97,32 @@ export async function PUT(request: Request) {
           { _id, 'products.product._id': product._id },
           { $set: { 'products.$.quantity': quantity } },
         )
+        const totalAmount: number = cart.products.reduce(
+          (total: number, item: ICartProduct) => total + item.product.price * item.quantity,
+          0,
+        )
+        const totalItems: number = cart.products.reduce(
+          (total: number, item: ICartProduct) => total + item.quantity,
+          0,
+        )
+        await Cart.findOneAndUpdate({ _id }, { $set: { totalAmount, totalItems } })
         return NextResponse.json('Quantity updated', { status: 201 })
       }
       return NextResponse.json('Quantity cannot be updated to a zero', { status: 400 })
     }
 
     await Cart.findOneAndUpdate({ _id }, { $push: { products: { product, quantity } } })
+    const update = await Cart.findOne({ _id })
+    // Calculate totalAmount and totalItems
+    const totalAmount: number = update.products.reduce(
+      (total: number, item: ICartProduct) => total + item.product.price * item.quantity,
+      0,
+    )
+    const totalItems: number = update.products.reduce(
+      (total: number, item: ICartProduct) => total + item.quantity,
+      0,
+    )
+    await Cart.findOneAndUpdate({ _id }, { $set: { totalAmount, totalItems } })
     return NextResponse.json('Product added succeffully', { status: 200 })
   } catch (err) {
     return NextResponse.json('Error Cart update failed!', { status: 500 })
